@@ -30,6 +30,7 @@ export default function EloRankings({ teamRankings }) {
     <Table size="small">
       <TableHead>
         <TableRow>
+          <TableCell></TableCell>
           <TableCell>Team</TableCell>
           <TableCell>ELO</TableCell>
           <TableCell>Wins</TableCell>
@@ -39,8 +40,11 @@ export default function EloRankings({ teamRankings }) {
         </TableRow>
       </TableHead>
       <TableBody>
-        {sortedRankings.map((row) => (
+        {sortedRankings.map((row, idx) => (
           <StyledTableRow key={row.team}>
+            <TableCell padding="checkbox" align="right">
+              {idx + 1}
+            </TableCell>
             <TableCell>
               <Team id={row.team} />
             </TableCell>

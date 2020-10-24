@@ -9,6 +9,7 @@ import {
   VictoryTheme,
   VictoryTooltip,
 } from 'victory';
+import Layout from '../../components/Layout';
 
 export async function getStaticPaths() {
   const paths = getAllTeamIds();
@@ -31,7 +32,7 @@ export async function getStaticProps({ params }) {
 
 export default function TeamPage({ team, stats }) {
   return (
-    <Container>
+    <Layout>
       <Typography variant="h2">{team.fullName}</Typography>
       <Typography variant="caption">{team.slogan}</Typography>
       <VictoryChart
@@ -55,6 +56,6 @@ export default function TeamPage({ team, stats }) {
           data={(stats).map((d, idx) => ({ x: idx, y: d?.elo }))}
         />
       </VictoryChart>
-    </Container>
+    </Layout>
   );
 }
