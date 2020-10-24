@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <header>
       <AppBar position="static">
-        <Typography variant="h3">
+        <Typography variant="h4">
           <Link href="/">Blaseball Rankings</Link>
         </Typography>
       </AppBar>

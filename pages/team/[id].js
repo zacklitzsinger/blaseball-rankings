@@ -1,4 +1,4 @@
-import { Container, Typography } from "@material-ui/core";
+import { Typography, Box } from "@material-ui/core";
 import React from "react";
 import { getAllTeamIds, getTeamData, getTeamStats } from "../../lib/teams";
 import {
@@ -10,6 +10,7 @@ import {
   VictoryTooltip,
 } from 'victory';
 import Layout from '../../components/Layout';
+import TeamIcon from '../../components/TeamIcon';
 
 export async function getStaticPaths() {
   const paths = getAllTeamIds();
@@ -24,20 +25,23 @@ export async function getStaticProps({ params }) {
   const stats = getTeamStats(params.id);
   return {
     props: {
+      id: params.id,
       team,
       stats,
     },
   };
 }
 
-export default function TeamPage({ team, stats }) {
+export default function TeamPage({ id, team, stats }) {
   return (
     <Layout>
-      <Typography variant="h2">{team.fullName}</Typography>
-      <Typography variant="caption">{team.slogan}</Typography>
+      <Box display="flex" alignItems="center">
+        <TeamIcon id={id} size={48} /><Typography variant="h2">{team.fullName}</Typography></Box>
+      <Typography variant="caption"><i>{team.slogan}</i></Typography>
       <VictoryChart
         theme={VictoryTheme.material}
-        height={200}
+        width={1100}
+        height={400}
         containerComponent={
           <VictoryVoronoiContainer
             voronoiDimension="x"
@@ -46,7 +50,7 @@ export default function TeamPage({ team, stats }) {
           />
         }
       >
-        <VictoryAxis />
+        <VictoryAxis tickValues={[0, 20, 40, 60, 80, 100]} />
         <VictoryAxis tickFormat={(f) => `${f}`} dependentAxis />
         <VictoryLine
           style={{
