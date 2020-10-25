@@ -19,9 +19,9 @@ const TeamIcon: React.FC<TeamProps> = ({ id, size = 30 }) => {
         marginRight: 5,
       }}
     >
-      {team?.emoji &&
-        !isNaN(parseInt(team.emoji)) &&
-        String.fromCodePoint(parseInt(team.emoji))}
+      {team?.emoji && !isNaN(parseInt(team.emoji))
+        ? String.fromCodePoint(parseInt(team.emoji))
+        : team?.emoji}
     </Avatar>
   );
 };

@@ -36,7 +36,9 @@ export default function EloRankings({ teamRankings }) {
           <TableCell>Wins</TableCell>
           <TableCell>Losses</TableCell>
           <TableCell>%</TableCell>
-          <TableCell>Run Differential</TableCell>
+          <TableCell>RF</TableCell>
+          <TableCell>RA</TableCell>
+          <TableCell>RD</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -55,7 +57,9 @@ export default function EloRankings({ teamRankings }) {
               {Math.round((row?.wins / (row?.wins + row?.losses)) * 1000) /
                 1000}
             </TableCell>
-            <TableCell>{row?.runDifferential}</TableCell>
+            <TableCell>{row?.runsFor}</TableCell>
+            <TableCell>{row?.runsAgainst}</TableCell>
+            <TableCell>{row?.runsFor - row?.runsAgainst}</TableCell>
           </StyledTableRow>
         ))}
       </TableBody>

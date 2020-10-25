@@ -1,5 +1,5 @@
 import { last } from "lodash";
-import teamStats from "./data/teamStats.json";
+import teamStats from "./data/season/9/teamStats.json";
 
 export function getTeamRankings() {
   const rankings = Object.keys(teamStats).map((team) => ({

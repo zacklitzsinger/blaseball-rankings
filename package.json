@@ -5,10 +5,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "calc": "ts-node -O '{\"module\": \"commonjs\"}' scripts/calc",
+    "gen": "ts-node -O '{\"module\": \"commonjs\"}' scripts/dataCollection"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
+    "elo-rank": "^1.0.4",
     "lodash": "^4.17.20",
     "next": "9.5.5",
     "react": "17.0.1",
@@ -20,6 +23,9 @@
     "@types/node": "^14.14.2",
     "@types/react": "^16.9.53",
     "@types/victory": "^33.1.4",
+    "node-fetch": "^2.6.1",
+    "prettier": "^2.1.2",
+    "query-string": "^6.13.6",
     "typescript": "^4.0.3"
   }
 }
