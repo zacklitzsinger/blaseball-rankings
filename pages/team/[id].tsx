@@ -41,23 +41,25 @@ export default function TeamPage({ id, team, stats }) {
         <i>{team.slogan}</i>
       </Typography>
       <SeasonEloChart team={team} stats={stats} />
-      <Box display="flex" flexDirection="column">
-        <Typography variant="h4">Best win</Typography>
-        <span>
-          <b>Elo Gain:</b> +{bestGame?.eloDelta}
-        </span>
-        <span>
-          <b>Opponent:</b> <Team id={bestGame?.opponent} />
-        </span>
-      </Box>
-      <Box display="flex" flexDirection="column">
-        <Typography variant="h4">Worst loss</Typography>
-        <span>
-          <b>Elo Loss:</b> {worstGame?.eloDelta}
-        </span>
-        <span>
-          <b>Opponent:</b> <Team id={worstGame?.opponent} />
-        </span>
+      <Box display="flex" justifyContent="space-around">
+        <Box display="flex" flexDirection="column">
+          <Typography variant="h5">Best win</Typography>
+          <span>
+            <b>Elo Gain:</b> +{bestGame?.eloDelta}
+          </span>
+          <span>
+            <b>Opponent:</b> <Team id={bestGame?.opponent} />
+          </span>
+        </Box>
+        <Box display="flex" flexDirection="column">
+          <Typography variant="h5">Worst loss</Typography>
+          <span>
+            <b>Elo Loss:</b> {worstGame?.eloDelta}
+          </span>
+          <span>
+            <b>Opponent:</b> <Team id={worstGame?.opponent} />
+          </span>
+        </Box>
       </Box>
     </Layout>
   );

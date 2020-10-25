@@ -11,7 +11,7 @@ export type TeamProps = {
 const Team: React.FC<TeamProps> = ({ id }) => {
   const team = teams.find(({ id: teamId }) => teamId === id);
   return (
-    <Box display="flex" alignItems="center">
+    <Box display="inline-flex" alignItems="center">
       <TeamIcon id={id} />
       <Link href={`/team/${id}`}>{team?.fullName ?? ""}</Link>
     </Box>
