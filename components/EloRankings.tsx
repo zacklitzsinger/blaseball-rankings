@@ -7,7 +7,9 @@ import {
   createStyles,
   Theme,
   withStyles,
+  Box,
 } from "@material-ui/core";
+import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
 import { orderBy } from "lodash";
 import React from "react";
 import Team from "./Team";
@@ -50,7 +52,13 @@ export default function EloRankings({ teamRankings }) {
             <TableCell>
               <Team id={row.team} />
             </TableCell>
-            <TableCell>{row?.elo}</TableCell>
+            <TableCell>
+              <Box display="flex" alignItems="center">
+                {row?.elo}
+                {row?.eloTrend > 20 && <ArrowUpward htmlColor="green" />}
+                {row?.eloTrend < -20 && <ArrowDownward htmlColor="red" />}
+              </Box>
+            </TableCell>
             <TableCell>{row?.wins}</TableCell>
             <TableCell>{row?.losses}</TableCell>
             <TableCell>
