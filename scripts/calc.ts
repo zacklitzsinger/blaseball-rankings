@@ -4,7 +4,7 @@ const { last } = require("lodash");
 const fs = require("fs");
 const path = require("path");
 
-const SEASON = 9;
+const SEASON = 8;
 const ELO_K = 15;
 const INITIAL_RATING = 1500;
 

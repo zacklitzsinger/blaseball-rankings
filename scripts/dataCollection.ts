@@ -8,7 +8,7 @@ const BASE_URL = "https://blaseball.com/database";
 
 const games: ApiGameResult[] = [];
 
-const season = 10;
+const season = 8;
 
 const doStuff = async () => {
   for (let day = 1; day <= 100; day++) {
@@ -25,7 +25,7 @@ const doStuff = async () => {
     "" + season,
     "game-data.json"
   );
-  console.log("Writing to ");
+  console.log("Writing to ", filePath);
   fs.writeFileSync(filePath, JSON.stringify(games));
 };
 
