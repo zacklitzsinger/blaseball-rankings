@@ -1,4 +1,4 @@
-import { Typography, Box, Card } from "@material-ui/core";
+import { Typography, Box } from "@material-ui/core";
 import React from "react";
 import { getAllTeamIds, getTeamData, getTeamStats } from "../../lib/teams";
 import Layout from "../../components/Layout";
@@ -27,9 +27,15 @@ export async function getStaticProps({ params }) {
   };
 }
 
-export default function TeamPage({ id, team, stats }) {
-  const bestGame = maxBy<any>(stats, "eloDelta");
-  const worstGame = minBy<any>(stats, "eloDelta");
+type TeamPageProps = {
+  id: string;
+  team: ReturnType<typeof getTeamData>;
+  stats: ReturnType<typeof getTeamStats>;
+};
+
+export default function TeamPage({ id, team, stats }: TeamPageProps) {
+  const bestGame = maxBy(stats, "eloDelta");
+  const worstGame = minBy(stats, "eloDelta");
 
   return (
     <Layout>
@@ -47,8 +53,10 @@ export default function TeamPage({ id, team, stats }) {
           <span>
             <b>Elo Gain:</b> +{bestGame?.eloDelta}
           </span>
+          <span>Day {bestGame.gameData.day}</span>
           <span>
-            <b>Opponent:</b> <Team id={bestGame?.opponent} />
+            <Team id={bestGame.gameData.awayTeam} /> @&nbsp;
+            <Team id={bestGame.gameData.homeTeam} />
           </span>
         </Box>
         <Box display="flex" flexDirection="column">
@@ -56,8 +64,10 @@ export default function TeamPage({ id, team, stats }) {
           <span>
             <b>Elo Loss:</b> {worstGame?.eloDelta}
           </span>
+          <span>Day {worstGame.gameData.day}</span>
           <span>
-            <b>Opponent:</b> <Team id={worstGame?.opponent} />
+            <Team id={worstGame.gameData.awayTeam} /> @&nbsp;
+            <Team id={worstGame.gameData.homeTeam} />
           </span>
         </Box>
       </Box>

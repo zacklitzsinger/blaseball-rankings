@@ -7,6 +7,8 @@ export type ApiGameResult = {
   homeTeam: string;
   homeTeamName: string;
   gameComplete: boolean;
+  season: number;
+  day: number;
   // more
 };
 
@@ -18,11 +20,11 @@ export type GameResult = {
 export type GameData = {
   elo: number;
   eloDelta?: number;
-  opponent?: string;
   runsFor: number;
   runsAgainst: number;
   wins: number;
   losses: number;
+  gameData: ApiGameResult;
 };
 
 export type TeamData = {

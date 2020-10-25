@@ -1,4 +1,4 @@
-import { ApiGameResult } from "./types";
+import { ApiGameResult } from "../types";
 const nodeFetch = require("node-fetch");
 const qs = require("query-string");
 const fs = require("fs");
@@ -18,10 +18,15 @@ const doStuff = async () => {
     const results: ApiGameResult[] = await res.json();
     games.push(...results);
   }
-  fs.writeFileSync(
-    path.join(__dirname, "../lib/data/season", "" + season, "game-data.json"),
-    JSON.stringify(games)
+
+  const filePath = path.join(
+    __dirname,
+    "../lib/data/season",
+    "" + season,
+    "game-data.json"
   );
+  console.log("Writing to ");
+  fs.writeFileSync(filePath, JSON.stringify(games));
 };
 
 doStuff();

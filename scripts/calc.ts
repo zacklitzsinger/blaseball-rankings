@@ -1,4 +1,4 @@
-import type { ApiGameResult, GameData, TeamData } from "./types";
+import type { ApiGameResult, GameData, TeamData } from "../types";
 const EloRank = require("elo-rank");
 const { last } = require("lodash");
 const fs = require("fs");
@@ -27,6 +27,7 @@ const initialData: GameData = {
   runsAgainst: 0,
   wins: 0,
   losses: 0,
+  gameData: null,
 };
 
 data.forEach((gr) => {
@@ -53,7 +54,7 @@ data.forEach((gr) => {
     runsAgainst: hlast.runsAgainst + awayScore,
     wins: hlast.wins + (won ? 1 : 0),
     losses: hlast.losses + (won ? 0 : 1),
-    opponent: awayTeam,
+    gameData: gr,
   });
   teamData[awayTeam].push({
     elo: awayRating,
@@ -62,7 +63,7 @@ data.forEach((gr) => {
     runsAgainst: alast.runsAgainst + homeScore,
     wins: alast.wins + (won ? 0 : 1),
     losses: alast.losses + (won ? 1 : 0),
-    opponent: homeTeam,
+    gameData: gr,
   });
 });
 
