@@ -5,7 +5,7 @@ import theme from "../components/theme";
 import Header from "../components/Header";
 import { Container } from "@material-ui/core";
 
-export default function Layout({ children }) {
+export default function Layout({ children }: any) {
   return (
     <>
       <Head>

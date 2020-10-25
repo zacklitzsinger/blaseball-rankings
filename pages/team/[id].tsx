@@ -15,7 +15,7 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params }: { params: { id: string } }) {
   const team = getTeamData(params.id);
   const stats = getTeamStats(params.id);
   return {
@@ -41,10 +41,10 @@ export default function TeamPage({ id, team, stats }: TeamPageProps) {
     <Layout>
       <Box display="flex" alignItems="center">
         <TeamIcon id={id} size={48} />
-        <Typography variant="h2">{team.fullName}</Typography>
+        <Typography variant="h2">{team?.fullName}</Typography>
       </Box>
       <Typography variant="caption">
-        <i>{team.slogan}</i>
+        <i>{team?.slogan}</i>
       </Typography>
       <SeasonEloChart team={team} stats={stats} />
       <Box display="flex" justifyContent="space-around">
@@ -53,10 +53,10 @@ export default function TeamPage({ id, team, stats }: TeamPageProps) {
           <span>
             <b>Elo Gain:</b> +{bestGame?.eloDelta}
           </span>
-          <span>Day {bestGame.gameData.day}</span>
+          <span>Day {bestGame?.gameData?.day}</span>
           <span>
-            <Team id={bestGame.gameData.awayTeam} /> @&nbsp;
-            <Team id={bestGame.gameData.homeTeam} />
+            <Team id={bestGame?.gameData?.awayTeam} /> @&nbsp;
+            <Team id={bestGame?.gameData?.homeTeam} />
           </span>
         </Box>
         <Box display="flex" flexDirection="column">
@@ -64,10 +64,10 @@ export default function TeamPage({ id, team, stats }: TeamPageProps) {
           <span>
             <b>Elo Loss:</b> {worstGame?.eloDelta}
           </span>
-          <span>Day {worstGame.gameData.day}</span>
+          <span>Day {worstGame?.gameData?.day}</span>
           <span>
-            <Team id={worstGame.gameData.awayTeam} /> @&nbsp;
-            <Team id={worstGame.gameData.homeTeam} />
+            <Team id={worstGame?.gameData?.awayTeam} /> @&nbsp;
+            <Team id={worstGame?.gameData?.homeTeam} />
           </span>
         </Box>
       </Box>

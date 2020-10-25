@@ -11,7 +11,11 @@ export async function getStaticProps() {
   };
 }
 
-export default function Home({ teamRankings }) {
+type HomeProps = {
+  teamRankings: ReturnType<typeof getTeamRankings>;
+}
+
+export default function Home({ teamRankings }: HomeProps) {
   return (
     <Layout>
       <EloRankings teamRankings={teamRankings} />

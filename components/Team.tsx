@@ -5,10 +5,13 @@ import Link from "next/link";
 import TeamIcon from "./TeamIcon";
 
 export type TeamProps = {
-  id: string;
+  id?: string;
 };
 
 const Team: React.FC<TeamProps> = ({ id }) => {
+  if (!id) {
+    return null;
+  }
   const team = teams.find(({ id: teamId }) => teamId === id);
   return (
     <Box display="inline-flex" alignItems="center">

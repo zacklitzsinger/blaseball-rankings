@@ -8,7 +8,15 @@ import {
   VictoryTooltip,
 } from "victory";
 
-export default function SeasonEloChart({ team, stats }) {
+type SeasonEloChartProps = {
+  team?: { mainColor: string };
+  stats?: { elo: number }[];
+};
+
+export default function SeasonEloChart({ team, stats }: SeasonEloChartProps) {
+  if (!stats) {
+    return null;
+  }
   return (
     <VictoryChart
       theme={VictoryTheme.material}

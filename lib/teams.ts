@@ -11,5 +11,5 @@ export function getTeamData(id: string) {
 }
 
 export function getTeamStats(id: string) {
-  return (teamStats as TeamData)[id];
+  return (teamStats as TeamData)[id] ?? null;
 }

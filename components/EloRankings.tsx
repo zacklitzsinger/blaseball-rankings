@@ -26,7 +26,7 @@ const StyledTableRow = withStyles((theme: Theme) =>
 
 export type EloRankingsProps = { teamRankings: any };
 
-export default function EloRankings({ teamRankings }) {
+export default function EloRankings({ teamRankings }: EloRankingsProps) {
   const sortedRankings = orderBy(teamRankings, "elo", "desc");
   return (
     <Table size="small">
