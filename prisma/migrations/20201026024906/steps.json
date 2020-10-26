@@ -1,0 +1,122 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "UpdateArgument",
+      "location": {
+        "tag": "Source",
+        "source": "db"
+      },
+      "argument": "provider",
+      "newValue": "\"sqlite\""
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Team",
+          "field": "homeGames"
+        },
+        "directive": "relation"
+      },
+      "argument": "",
+      "value": "\"awayTeamGames\""
+    },
+    {
+      "tag": "DeleteArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Team",
+          "field": "homeGames"
+        },
+        "directive": "relation"
+      },
+      "argument": "name"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Team",
+          "field": "awayGames"
+        },
+        "directive": "relation"
+      },
+      "argument": "",
+      "value": "\"homeTeamGames\""
+    },
+    {
+      "tag": "DeleteArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Team",
+          "field": "awayGames"
+        },
+        "directive": "relation"
+      },
+      "argument": "name"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Game",
+          "field": "awayTeam"
+        },
+        "directive": "relation"
+      },
+      "argument": "",
+      "value": "\"awayTeamGames\""
+    },
+    {
+      "tag": "DeleteArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Game",
+          "field": "awayTeam"
+        },
+        "directive": "relation"
+      },
+      "argument": "name"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Game",
+          "field": "homeTeam"
+        },
+        "directive": "relation"
+      },
+      "argument": "",
+      "value": "\"homeTeamGames\""
+    },
+    {
+      "tag": "DeleteArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Game",
+          "field": "homeTeam"
+        },
+        "directive": "relation"
+      },
+      "argument": "name"
+    }
+  ]
+}

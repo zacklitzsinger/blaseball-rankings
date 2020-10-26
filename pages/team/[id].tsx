@@ -6,9 +6,10 @@ import TeamIcon from "../../components/TeamIcon";
 import SeasonEloChart from "../../components/SeasonEloChart";
 import { maxBy, minBy } from "lodash";
 import Team from "../../components/Team";
+import type { Team as TeamType } from "@prisma/client";
 
 export async function getStaticPaths() {
-  const paths = getAllTeamIds();
+  const paths = await getAllTeamIds();
   return {
     paths,
     fallback: false,
@@ -16,7 +17,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }: { params: { id: string } }) {
-  const team = getTeamData(params.id);
+  const team = await getTeamData(params.id);
   const stats = getTeamStats(params.id);
   return {
     props: {
@@ -29,7 +30,7 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
 
 type TeamPageProps = {
   id: string;
-  team: ReturnType<typeof getTeamData>;
+  team: TeamType;
   stats: ReturnType<typeof getTeamStats>;
 };
 
@@ -43,9 +44,7 @@ export default function TeamPage({ id, team, stats }: TeamPageProps) {
         <TeamIcon id={id} size={48} />
         <Typography variant="h2">{team?.fullName}</Typography>
       </Box>
-      <Typography variant="caption">
-        <i>{team?.slogan}</i>
-      </Typography>
+      <Typography variant="caption">{/* <i>{team?.slogan}</i> */}</Typography>
       <SeasonEloChart team={team} stats={stats} />
       <Box display="flex" justifyContent="space-around">
         <Box display="flex" flexDirection="column">

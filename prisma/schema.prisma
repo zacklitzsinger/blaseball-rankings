@@ -1,0 +1,31 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["connectOrCreate"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Team {
+  id        String @id
+  fullName  String
+  emoji     String
+  mainColor String
+  slogan    String
+  homeGames Game[] @relation("awayTeamGames")
+  awayGames Game[] @relation("homeTeamGames")
+}
+
+model Game {
+  id         String @id
+  awayScore  Float
+  homeScore  Float
+  awayTeamId String
+  homeTeamId String
+  awayTeam   Team   @relation("awayTeamGames", fields: [awayTeamId], references: [id])
+  homeTeam   Team   @relation("homeTeamGames", fields: [homeTeamId], references: [id])
+  day        Int
+  season     Int
+}

@@ -3,9 +3,13 @@ export type ApiGameResult = {
   awayScore: number;
   awayTeam: string;
   awayTeamName: string;
+  awayTeamColor: string;
+  awayTeamEmoji: string;
   homeScore: number;
   homeTeam: string;
   homeTeamName: string;
+  homeTeamColor: string;
+  homeTeamEmoji: string;
   gameComplete: boolean;
   season: number;
   day: number;
