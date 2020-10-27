@@ -5,7 +5,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 model Team {
@@ -32,6 +32,7 @@ model Game {
 }
 
 model Stats {
+  id String @id @default(uuid())
   team  Team @relation(fields: [teamId], references: [id])
   teamId String
   elo    Int
@@ -39,9 +40,7 @@ model Stats {
   wins Int
   losses Int
   runsFor Int
-  runsAgainst Int
+  runsAgain Int
   day Int
   season Int
-
-  @@id([day, season, teamId])
 }

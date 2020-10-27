@@ -1,0 +1,45 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateField",
+      "model": "Stats",
+      "field": "runsAgainst",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Stats",
+      "field": "id"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Stats",
+      "field": "runsAgain"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Model",
+          "model": "Stats"
+        },
+        "directive": "id"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Model",
+          "model": "Stats"
+        },
+        "directive": "id"
+      },
+      "argument": "",
+      "value": "[day, season, teamId]"
+    }
+  ]
+}

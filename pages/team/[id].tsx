@@ -4,12 +4,10 @@ import { getAllTeamIds, getTeamData, getTeamStats } from "../../lib/teams";
 import Layout from "../../components/Layout";
 import TeamIcon from "../../components/TeamIcon";
 import SeasonEloChart from "../../components/SeasonEloChart";
-import { maxBy, minBy } from "lodash";
-import Team from "../../components/Team";
-import type { Team as TeamType } from "@prisma/client";
+import type { Team as TeamType, Stats } from "@prisma/client";
 
 export async function getStaticPaths() {
-  const paths = await getAllTeamIds();
+  const paths = (await getAllTeamIds()).map(({ id }) => ({ params: { id } }));
   return {
     paths,
     fallback: false,
@@ -18,7 +16,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: { params: { id: string } }) {
   const team = await getTeamData(params.id);
-  const stats = getTeamStats(params.id);
+  const stats = await getTeamStats(params.id);
   return {
     props: {
       id: params.id,
@@ -31,12 +29,12 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
 type TeamPageProps = {
   id: string;
   team: TeamType;
-  stats: ReturnType<typeof getTeamStats>;
+  stats: Stats[];
 };
 
 export default function TeamPage({ id, team, stats }: TeamPageProps) {
-  const bestGame = maxBy(stats, "eloDelta");
-  const worstGame = minBy(stats, "eloDelta");
+  // const bestGame = maxBy(stats, "eloDelta");
+  // const worstGame = minBy(stats, "eloDelta");
 
   return (
     <Layout>
@@ -46,7 +44,7 @@ export default function TeamPage({ id, team, stats }: TeamPageProps) {
       </Box>
       <Typography variant="caption">{/* <i>{team?.slogan}</i> */}</Typography>
       <SeasonEloChart team={team} stats={stats} />
-      <Box display="flex" justifyContent="space-around">
+      {/* <Box display="flex" justifyContent="space-around">
         <Box display="flex" flexDirection="column">
           <Typography variant="h5">Best win</Typography>
           <span>
@@ -69,7 +67,7 @@ export default function TeamPage({ id, team, stats }: TeamPageProps) {
             <Team id={worstGame?.gameData?.homeTeam} />
           </span>
         </Box>
-      </Box>
+      </Box> */}
     </Layout>
   );
 }

@@ -1,8 +1,11 @@
 import type { ApiGameResult, GameData, TeamData } from "../types";
-const EloRank = require("elo-rank");
-const { last } = require("lodash");
-const fs = require("fs");
-const path = require("path");
+import EloRank from "elo-rank";
+import { last } from "lodash";
+import path from "path";
+import fs from "fs";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 const SEASON = 8;
 const ELO_K = 15;
@@ -27,7 +30,8 @@ const initialData: GameData = {
   runsAgainst: 0,
   wins: 0,
   losses: 0,
-};
+  gameData: null,
+} as any;
 
 data.forEach((gr) => {
   const { awayTeam, homeTeam, homeScore, awayScore } = gr;
@@ -66,7 +70,36 @@ data.forEach((gr) => {
   });
 });
 
-fs.writeFileSync(
-  path.join(dataDir, "season", `${SEASON}`, "teamStats.json"),
-  JSON.stringify(teamData)
-);
+const doStuff = async () => {
+  await prisma.$connect();
+  for (const tid in teamData) {
+    const games = teamData[tid];
+    for (const g of games) {
+      await prisma.stats.create({
+        data: {
+          season: SEASON,
+          day: g.gameData.day,
+          elo: g.elo,
+          eloDelta: g.eloDelta as number,
+          wins: g.wins,
+          losses: g.losses,
+          team: {
+            connect: {
+              id: tid,
+            },
+          },
+          runsFor: g.runsFor,
+          runsAgainst: g.runsAgainst,
+        },
+      });
+    }
+  }
+};
+
+doStuff()
+  .catch((e) => {
+    throw e;
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

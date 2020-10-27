@@ -28,7 +28,7 @@ export type GameData = {
   runsAgainst: number;
   wins: number;
   losses: number;
-  gameData?: ApiGameResult;
+  gameData: ApiGameResult;
 };
 
 export type TeamData = {

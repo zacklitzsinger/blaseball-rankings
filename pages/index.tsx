@@ -1,9 +1,10 @@
-import EloRankings from '../components/EloRankings';
+import EloRankings from "../components/EloRankings";
 import { getTeamRankings } from "../lib/rankings";
-import Layout from '../components/Layout';
+import Layout from "../components/Layout";
+import { Stats } from "@prisma/client";
 
 export async function getStaticProps() {
-  const teamRankings = getTeamRankings();
+  const teamRankings = await getTeamRankings();
   return {
     props: {
       teamRankings,
@@ -12,13 +13,13 @@ export async function getStaticProps() {
 }
 
 type HomeProps = {
-  teamRankings: ReturnType<typeof getTeamRankings>;
-}
+  teamRankings: Record<string, Stats | null>;
+};
 
 export default function Home({ teamRankings }: HomeProps) {
   return (
     <Layout>
       <EloRankings teamRankings={teamRankings} />
     </Layout>
-  )
+  );
 }
