@@ -1,23 +1,20 @@
+// Creates ELO statistics
+
 import type { ApiGameResult, GameData, TeamData } from "../types";
 import EloRank from "elo-rank";
 import { last } from "lodash";
 import path from "path";
-import fs from "fs";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const SEASON = 8;
+const SEASON = 5;
 const ELO_K = 15;
 const INITIAL_RATING = 1500;
 
-const dataDir = path.join(__dirname, "../lib/data");
-
 const data: ApiGameResult[] = require(path.join(
-  dataDir,
-  "season",
-  `${SEASON}`,
-  "game-data.json"
+  __dirname,
+  `season${SEASON}.json`
 ));
 
 const teamData: TeamData = {};

@@ -1,4 +1,4 @@
-import { Typography, Box } from "@material-ui/core";
+import { Typography, Box, Select } from "@material-ui/core";
 import React from "react";
 import { getAllTeamIds, getTeamData, getTeamStats } from "../../lib/teams";
 import Layout from "../../components/Layout";
@@ -6,20 +6,23 @@ import TeamIcon from "../../components/TeamIcon";
 import SeasonEloChart from "../../components/SeasonEloChart";
 import type { Team as TeamType, Stats } from "@prisma/client";
 
-export async function getStaticPaths() {
-  const paths = (await getAllTeamIds()).map(({ id }) => ({ params: { id } }));
-  return {
-    paths,
-    fallback: false,
-  };
-}
+// export async function getStaticPaths() {
+//   const paths = (await getAllTeamIds()).map(({ id }) => ({ params: { id } }));
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
 
-export async function getStaticProps({ params }: { params: { id: string } }) {
-  const team = await getTeamData(params.id);
-  const stats = await getTeamStats(params.id);
+export async function getServerSideProps(context: any) {
+  const season = context.query.season
+    ? parseInt(context.query.season, 10)
+    : null;
+  const team = await getTeamData(context.params.id);
+  const stats = await getTeamStats(context.params.id, season);
   return {
     props: {
-      id: params.id,
+      id: context.params.id,
       team,
       stats,
     },

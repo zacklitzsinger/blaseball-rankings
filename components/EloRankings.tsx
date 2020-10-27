@@ -25,9 +25,15 @@ const StyledTableRow = withStyles((theme: Theme) =>
   })
 )(TableRow);
 
-export type EloRankingsProps = { teamRankings: Record<string, Stats | null> };
+export type EloRankingsProps = {
+  teamRankings: Record<string, Stats | null>;
+  season: number;
+};
 
-export default function EloRankings({ teamRankings }: EloRankingsProps) {
+export default function EloRankings({
+  teamRankings,
+  season,
+}: EloRankingsProps) {
   const sortedRankings = orderBy(teamRankings, "elo", "desc");
   return (
     <Table size="small">
@@ -53,7 +59,7 @@ export default function EloRankings({ teamRankings }: EloRankingsProps) {
                   {idx + 1}
                 </TableCell>
                 <TableCell>
-                  <Team id={row.teamId} />
+                  <Team id={row.teamId} season={season} />
                 </TableCell>
                 <TableCell>
                   <Box display="flex" alignItems="center">

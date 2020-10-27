@@ -11,7 +11,8 @@
     "postinstall": "prisma generate",
     "generate": "prisma generate",
     "calc": "ts-node -O '{\"module\": \"commonjs\"}' scripts/calc",
-    "gen": "ts-node -O '{\"module\": \"commonjs\"}' scripts/dataCollection"
+    "data:db": "ts-node -O '{\"module\": \"commonjs\"}' scripts/addDataToDb",
+    "data:fetch": "ts-node -O '{\"module\": \"commonjs\"}' scripts/dataCollection"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
