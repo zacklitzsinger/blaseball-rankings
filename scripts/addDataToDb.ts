@@ -1,16 +1,15 @@
-// import { ApiGameResult } from "../types";
-// import nodeFetch from "node-fetch";
-// import qs from "query-string";
-// import fs from "fs";
-// import path from "path";
-import results from "./season5.json";
 import { PrismaClient } from "@prisma/client";
+import { ApiGameResult } from "../types";
 
 const prisma = new PrismaClient();
 
-const doStuff = async () => {
-  prisma.$connect();
+const doStuff = async (season: number) => {
+  const results: ApiGameResult[] = require(`./season${season}.json`);
+  console.log("Importing season", season);
   for (let r of results) {
+    if (r.isPostseason) {
+      return;
+    }
     await prisma.game.create({
       data: {
         id: r.id,
@@ -45,9 +44,16 @@ const doStuff = async () => {
       },
     });
   }
+  console.log("Done");
 };
 
-doStuff()
+const doAll = async () => {
+  for (let season of [2, 3, 4, 5, 6, 7, 8, 9, 10]) {
+    await doStuff(season);
+  }
+};
+
+doAll()
   .catch((e) => {
     throw e;
   })

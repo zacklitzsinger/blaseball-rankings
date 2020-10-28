@@ -5,6 +5,7 @@ import { Stats } from "@prisma/client";
 import Link from "next/link";
 import { Box } from "@material-ui/core";
 import { getAllSeasons } from "../lib/seasons";
+import { Link as MuiLink } from "@material-ui/core";
 
 export async function getServerSideProps(context: any) {
   const season = context.query?.season
@@ -32,8 +33,8 @@ export default function Home({ teamRankings, season, allSeasons }: HomeProps) {
     <Layout>
       <Box display="inline-flex">
         {allSeasons.map((s) => (
-          <Link key={s} href={`/?season=${s}`}>
-            {`Season ${s}`}
+          <Link key={s} passHref href={`/?season=${s}`}>
+            <MuiLink style={{ paddingRight: 10 }}>{`Season ${s}`}</MuiLink>
           </Link>
         ))}
       </Box>

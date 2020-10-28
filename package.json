@@ -8,11 +8,12 @@
     "start": "next start",
     "migrate:save": "prisma migrate save --experimental",
     "migrate:up": "prisma migrate up --experimental",
+    "db:clear": "rm -rf prisma/test.db && npm run migrate:up",
     "postinstall": "prisma generate",
     "generate": "prisma generate",
-    "calc": "ts-node -O '{\"module\": \"commonjs\"}' scripts/calc",
-    "data:db": "ts-node -O '{\"module\": \"commonjs\"}' scripts/addDataToDb",
-    "data:fetch": "ts-node -O '{\"module\": \"commonjs\"}' scripts/dataCollection"
+    "calc-elo": "ts-node -O '{\"module\": \"commonjs\"}' scripts/calc",
+    "add-to-db": "ts-node -O '{\"module\": \"commonjs\"}' scripts/addDataToDb",
+    "data-collection": "ts-node -O '{\"module\": \"commonjs\"}' scripts/dataCollection"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",

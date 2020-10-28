@@ -1,4 +1,4 @@
-import { Box, Avatar } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import React from "react";
 import teams from "../lib/data/teams.json";
 import Link from "next/link";

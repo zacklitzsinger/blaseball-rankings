@@ -13,6 +13,7 @@ export type ApiGameResult = {
   gameComplete: boolean;
   season: number;
   day: number;
+  isPostseason: boolean;
   // more
 };
 
