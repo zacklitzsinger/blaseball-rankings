@@ -70,7 +70,6 @@ const calc = async (season: number) => {
 
   const doStuff = async () => {
     console.log("Writing data to db for season", season);
-    await prisma.$connect();
     for (const tid in teamData) {
       const games = teamData[tid];
       for (const g of games) {
@@ -99,7 +98,7 @@ const calc = async (season: number) => {
 };
 
 const doAll = async () => {
-  for (const season of [2, 3, 4, 5, 6, 7, 8, 9, 10]) {
+  for (const season of [10]) {
     await calc(season);
   }
 };
