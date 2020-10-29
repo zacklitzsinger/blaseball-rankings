@@ -1,7 +1,7 @@
 import { getAllTeamIds } from "./teams";
-import { PrismaClient, Stats } from "@prisma/client";
+import prisma from "./client";
 import { getLatestSeason } from "./seasons";
-const prisma = new PrismaClient();
+import { Stats } from "@prisma/client";
 
 export async function getTeamRankings(season: number | null) {
   const selectedSeason = season ?? (await getLatestSeason());

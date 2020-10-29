@@ -1,52 +1,52 @@
-import { Typography, Box, Select } from "@material-ui/core";
+import { Typography, Box } from "@material-ui/core";
 import React from "react";
-import { getAllTeamIds, getTeamData, getTeamStats } from "../../lib/teams";
+import { getAllTeamIds, getTeamData } from "../../lib/teams";
 import Layout from "../../components/Layout";
 import TeamIcon from "../../components/TeamIcon";
 import SeasonEloChart from "../../components/SeasonEloChart";
 import type { Team as TeamType, Stats } from "@prisma/client";
+import useSWR from "swr";
+import { useRouter } from "next/router";
 
-// export async function getStaticPaths() {
-//   const paths = (await getAllTeamIds()).map(({ id }) => ({ params: { id } }));
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// }
+export async function getStaticPaths() {
+  const paths = (await getAllTeamIds()).map(({ id }) => ({ params: { id } }));
+  return {
+    paths,
+    fallback: false,
+  };
+}
 
-export async function getServerSideProps(context: any) {
-  const season = context.query.season
-    ? parseInt(context.query.season, 10)
-    : null;
+export async function getStaticProps(context: any) {
   const team = await getTeamData(context.params.id);
-  const stats = await getTeamStats(context.params.id, season);
   return {
     props: {
-      id: context.params.id,
       team,
-      stats,
     },
   };
 }
 
 type TeamPageProps = {
-  id: string;
   team: TeamType;
-  stats: Stats[];
 };
 
-export default function TeamPage({ id, team, stats }: TeamPageProps) {
+export default function TeamPage({ team }: TeamPageProps) {
   // const bestGame = maxBy(stats, "eloDelta");
   // const worstGame = minBy(stats, "eloDelta");
+  const {
+    query: { season },
+  } = useRouter();
+  const { data: stats } = useSWR<Stats[]>(
+    () => "/api/season/" + season + "/stats/team/" + team.id
+  );
 
   return (
     <Layout>
       <Box display="flex" alignItems="center">
-        <TeamIcon id={id} size={48} />
+        <TeamIcon id={team.id} size={48} />
         <Typography variant="h2">{team?.fullName}</Typography>
       </Box>
       <Typography variant="caption">{/* <i>{team?.slogan}</i> */}</Typography>
-      <SeasonEloChart team={team} stats={stats} />
+      {stats && <SeasonEloChart team={team} stats={stats} />}
       {/* <Box display="flex" justifyContent="space-around">
         <Box display="flex" flexDirection="column">
           <Typography variant="h5">Best win</Typography>

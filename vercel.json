@@ -6,5 +6,16 @@
     "env": {
       "DATABASE_URL": "@database_url"
     }
-  }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "cache-control",
+          "value": "s-maxage=3600"
+        }
+      ]
+    }
+  ]
 }

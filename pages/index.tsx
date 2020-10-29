@@ -6,29 +6,33 @@ import Link from "next/link";
 import { Box } from "@material-ui/core";
 import { getAllSeasons } from "../lib/seasons";
 import { Link as MuiLink } from "@material-ui/core";
+import useSWR from "swr";
+import { last } from "lodash";
 
 export async function getServerSideProps(context: any) {
+  // const teamRankings = await getTeamRankings(season);
+  const allSeasons = await getAllSeasons();
   const season = context.query?.season
     ? parseInt(context.query?.season, 10)
-    : null;
-  const teamRankings = await getTeamRankings(season);
-  const allSeasons = await getAllSeasons();
+    : last(allSeasons);
   return {
     props: {
       season,
       allSeasons,
-      teamRankings,
+      // teamRankings,
     },
   };
 }
 
 type HomeProps = {
-  teamRankings: Record<string, Stats | null>;
   season: number;
   allSeasons: number[];
 };
 
-export default function Home({ teamRankings, season, allSeasons }: HomeProps) {
+export default function Home({ season, allSeasons }: HomeProps) {
+  const { data: teamRankings, error } = useSWR<Record<string, Stats>>(
+    () => "/api/season/" + season + "/stats"
+  );
   return (
     <Layout>
       <Box display="inline-flex">
@@ -38,7 +42,9 @@ export default function Home({ teamRankings, season, allSeasons }: HomeProps) {
           </Link>
         ))}
       </Box>
-      <EloRankings teamRankings={teamRankings} season={season} />
+      {teamRankings && (
+        <EloRankings teamRankings={teamRankings} season={season} />
+      )}
     </Layout>
   );
 }

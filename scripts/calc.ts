@@ -98,7 +98,7 @@ const calc = async (season: number) => {
 };
 
 const doAll = async () => {
-  for (const season of [10]) {
+  for (const season of [9]) {
     await calc(season);
   }
 };

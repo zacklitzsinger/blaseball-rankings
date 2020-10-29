@@ -9,13 +9,13 @@ datasource db {
 }
 
 model Team {
-  id        String @id
+  id        String  @id
   fullName  String
   emoji     String
   mainColor String
   slogan    String
-  homeGames Game[] @relation("awayTeamGames")
-  awayGames Game[] @relation("homeTeamGames")
+  homeGames Game[]  @relation("awayTeamGames")
+  awayGames Game[]  @relation("homeTeamGames")
   stats     Stats[]
 }
 
@@ -32,16 +32,16 @@ model Game {
 }
 
 model Stats {
-  team  Team @relation(fields: [teamId], references: [id])
-  teamId String
-  elo    Int
-  eloDelta Int
-  wins Int
-  losses Int
-  runsFor Int
+  team        Team   @relation(fields: [teamId], references: [id])
+  teamId      String
+  elo         Int
+  eloDelta    Int
+  wins        Int
+  losses      Int
+  runsFor     Int
   runsAgainst Int
-  day Int
-  season Int
+  day         Int
+  season      Int
 
   @@id([day, season, teamId])
 }

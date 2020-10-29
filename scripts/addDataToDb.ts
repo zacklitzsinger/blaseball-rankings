@@ -48,7 +48,7 @@ const doStuff = async (season: number) => {
 };
 
 const doAll = async () => {
-  for (let season of [10]) {
+  for (let season of [9]) {
     await doStuff(season);
   }
 };

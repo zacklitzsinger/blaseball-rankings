@@ -1,6 +1,4 @@
-import { getAllTeamIds } from "./teams";
-import { PrismaClient, Stats } from "@prisma/client";
-const prisma = new PrismaClient();
+import prisma from "./client";
 
 export async function getLatestSeason() {
   return (
