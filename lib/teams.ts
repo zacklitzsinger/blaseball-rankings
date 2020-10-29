@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client";
 import { getLatestSeason } from "./seasons";
-const prisma = new PrismaClient();
+import prisma from "./client";
 
 export async function getAllTeamIds() {
   return await prisma.team.findMany({ select: { id: true } });

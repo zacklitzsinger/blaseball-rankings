@@ -3,7 +3,7 @@ import { getTeamRankings } from "../lib/rankings";
 import Layout from "../components/Layout";
 import { Stats } from "@prisma/client";
 import Link from "next/link";
-import { Box } from "@material-ui/core";
+import { Box, CircularProgress, Container } from "@material-ui/core";
 import { getAllSeasons } from "../lib/seasons";
 import { Link as MuiLink } from "@material-ui/core";
 import useSWR from "swr";
@@ -42,8 +42,17 @@ export default function Home({ season, allSeasons }: HomeProps) {
           </Link>
         ))}
       </Box>
-      {teamRankings && (
+      {teamRankings ? (
         <EloRankings teamRankings={teamRankings} season={season} />
+      ) : (
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          minHeight="80vh"
+        >
+          <CircularProgress />
+        </Box>
       )}
     </Layout>
   );

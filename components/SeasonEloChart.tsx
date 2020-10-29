@@ -9,11 +9,10 @@ import {
 } from "victory";
 
 type SeasonEloChartProps = {
-  team?: { mainColor: string };
   stats?: { elo: number }[];
 };
 
-export default function SeasonEloChart({ team, stats }: SeasonEloChartProps) {
+export default function SeasonEloChart({ stats }: SeasonEloChartProps) {
   if (!stats) {
     return null;
   }
@@ -34,7 +33,7 @@ export default function SeasonEloChart({ team, stats }: SeasonEloChartProps) {
       <VictoryAxis tickFormat={(f) => `${f}`} dependentAxis />
       <VictoryLine
         style={{
-          data: { stroke: team?.mainColor },
+          data: { stroke: "black" },
           parent: { border: "1px solid #ccc" },
         }}
         data={stats.map((d, idx) => ({ x: idx, y: d?.elo }))}

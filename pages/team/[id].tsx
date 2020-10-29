@@ -1,4 +1,4 @@
-import { Typography, Box } from "@material-ui/core";
+import { Typography, Box, CircularProgress } from "@material-ui/core";
 import React from "react";
 import { getAllTeamIds, getTeamData } from "../../lib/teams";
 import Layout from "../../components/Layout";
@@ -35,8 +35,10 @@ export default function TeamPage({ team }: TeamPageProps) {
   const {
     query: { season },
   } = useRouter();
-  const { data: stats } = useSWR<Stats[]>(
-    () => "/api/season/" + season + "/stats/team/" + team.id
+  const { data: stats } = useSWR<Stats[]>(() =>
+    season && team.id
+      ? "/api/season/" + season + "/stats/team/" + team.id
+      : null
   );
 
   return (
@@ -46,7 +48,18 @@ export default function TeamPage({ team }: TeamPageProps) {
         <Typography variant="h2">{team?.fullName}</Typography>
       </Box>
       <Typography variant="caption">{/* <i>{team?.slogan}</i> */}</Typography>
-      {stats && <SeasonEloChart team={team} stats={stats} />}
+      {stats ? (
+        <SeasonEloChart stats={stats} />
+      ) : (
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          minHeight="60vh"
+        >
+          <CircularProgress />
+        </Box>
+      )}
       {/* <Box display="flex" justifyContent="space-around">
         <Box display="flex" flexDirection="column">
           <Typography variant="h5">Best win</Typography>
