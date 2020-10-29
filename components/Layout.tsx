@@ -14,7 +14,9 @@ export default function Layout({ children }: any) {
       </Head>
       <ThemeProvider theme={theme}>
         <Header />
-        <Container>{children}</Container>
+        <Container style={{ paddingTop: 10, paddingBottom: 20 }}>
+          {children}
+        </Container>
 
         <footer className={styles.footer}>
           <a

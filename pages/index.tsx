@@ -32,7 +32,7 @@ export default function Home({ season, allSeasons }: HomeProps) {
   );
   return (
     <Layout>
-      <Box display="inline-flex">
+      <Box display="inline-flex" mb={2}>
         {allSeasons.map((s) => (
           <Link key={s} passHref href={`/?season=${s}`}>
             <MuiLink style={{ paddingRight: 10 }}>{`Season ${s}`}</MuiLink>
