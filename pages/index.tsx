@@ -1,16 +1,14 @@
 import EloRankings from "../components/EloRankings";
-import { getTeamRankings } from "../lib/rankings";
 import Layout from "../components/Layout";
 import { Stats } from "@prisma/client";
 import Link from "next/link";
-import { Box, CircularProgress, Container } from "@material-ui/core";
+import { Box, CircularProgress } from "@material-ui/core";
 import { getAllSeasons } from "../lib/seasons";
 import { Link as MuiLink } from "@material-ui/core";
 import useSWR from "swr";
 import { last } from "lodash";
 
 export async function getServerSideProps(context: any) {
-  // const teamRankings = await getTeamRankings(season);
   const allSeasons = await getAllSeasons();
   const season = context.query?.season
     ? parseInt(context.query?.season, 10)
@@ -19,7 +17,6 @@ export async function getServerSideProps(context: any) {
     props: {
       season,
       allSeasons,
-      // teamRankings,
     },
   };
 }
@@ -30,7 +27,7 @@ type HomeProps = {
 };
 
 export default function Home({ season, allSeasons }: HomeProps) {
-  const { data: teamRankings, error } = useSWR<Record<string, Stats>>(
+  const { data: teamRankings } = useSWR<Record<string, Stats>>(
     () => "/api/season/" + season + "/stats"
   );
   return (
